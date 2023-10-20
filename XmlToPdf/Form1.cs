@@ -71,12 +71,6 @@ namespace XmlToPdf
 
             TimbreFiscalDigital tfd = getDes();
 
-
-            string paap = comprobantXml.Emisor.Nombre;
-            string pap = comprobantXml.Version;
-            string paps = comprobantXml.FormaPago;
-            string paaw = comprobantXml.Fecha;
-            string papd = comprobantXml.Folio;
             string uid = tfd.UUID;
 
             //02
@@ -144,8 +138,8 @@ namespace XmlToPdf
 
         private void Form1_Load_1(object sender, EventArgs e)
         {
-            textBox1.Text = "C:\\Users\\Guadalupe Reyes C\\OneDrive - Universidad Tecnologica de Aguascalientes\\Documentos lap ant\\13 Empresas\\FR Diaz\\xml\\XmlToPdf\\760F0728-7261-D24D-8E7D-7706C0D75E96.xml";
-            //textBox1.Text = "C:\\MiXml.xml";
+            //textBox1.Text = "C:\\Users\\Guadalupe Reyes C\\OneDrive - Universidad Tecnologica de Aguascalientes\\Documentos lap ant\\13 Empresas\\FR Diaz\\xml\\XmlToPdf\\760F0728-7261-D24D-8E7D-7706C0D75E96.xml";
+            textBox1.Text = "C:\\MiXml.xml";
             textBox2.Text = "C:\\RENOVATIO\\";
         }
 
@@ -208,124 +202,132 @@ namespace XmlToPdf
             TimbreFiscalDigital tfd = getDes();
 
 
-
-            //--Ruta img qr--//
-            string strImage = comprobantXml.QR;
-
-            //--Emisor--//
-            string strEmisorRfc = comprobantXml.Emisor.Rfc;
-            string strEmisorName = comprobantXml.Emisor.Nombre;
-            string strEmisorRegInt = comprobantXml.Emisor.RegimenFiscal;
-            string strEmisorRegi = getRegimenFiscal(Int32.Parse(comprobantXml.Emisor.RegimenFiscal));
-
-            //--Receptor--//
-            string strReceptorUsoCfdi = comprobantXml.Receptor.UsoCFDI;
-            string strReceptorRfc = comprobantXml.Receptor.Rfc;
-            string strReceptorName = comprobantXml.Receptor.Nombre;
-            int intReceptorRegi = Int32.Parse(comprobantXml.Receptor.RegimenFiscalReceptor);
-            string strReceptorRegi = getRegimenFiscal(Int32.Parse(comprobantXml.Receptor.RegimenFiscalReceptor));
-            string strReceptorDirr = comprobantXml.Receptor.DomicilioFiscalReceptor;
-
-            //--About comprobante--//
-            string strUuid = tfd.UUID;
-            string strFolioCom = com.Folio;
-            string strNoCerCom = com.NoCertificado;
-            string strNoCerSat = tfd.NoCertificadoSAT;
-            string strVersionTf = tfd.Version;
-            string strSubtotalCom = intAMoneda(0, com.SubTotal, "");
-            string strImpTotalCom = intAMoneda(0, com.Total, "");
-            decimal strImpTotalId = com.Total - com.SubTotal;
-            string strImpTotalImp = intAMoneda(0, strImpTotalId, "");
-            string strDescuentCom = intAMoneda(0, com.Descuento, "");
-            string strSelloCfdi = tfd.SelloCFD;
-            string strSelloSatt = tfd.SelloSAT;
-            string strRfcProvTim = tfd.RfcProvCertif;
-            string strTipoCom = com.TipoDeComprobante;
-            string strFechaTimb = tfd.FechaTimbrado.ToString("s");
-
-
-            string strCfdiVersion = comprobantXml.Version;
-            string strFormaPago = comprobantXml.FormaPago;
-            string strFormaPagoletra = getMetodoPagoLetra(Int32.Parse(strFormaPago));
-            string strMetodoPago = comprobantXml.MetodoPago;
-            string paaw = comprobantXml.Fecha;
-
-            var asd = com.Impuestos.Traslados;
-            var aasd = com.Impuestos;
-
-            //--Impuestos--//
-            //var pimpuestos = comprobantXml.Impuestos.Traslados.ToList();
-            var pimpuestos = comprobantXml.Impuestos.Traslados.ToList();
-            var pimpuestosAdaptados = pimpuestos.Select(b => new ImpuestoAdapter(b)).ToList();////Convertir objetos conceptos a objetos ProductoAdapter
-
-            //--Conceptos--//
-            var pproductos = comprobantXml.Conceptos.ToList();
-            var pproductosAdaptados = pproductos.Select(p => new ProductoAdapter(p)).ToList();////Convertir objetos conceptos a objetos ProductoAdapter
-
-            switch (strTipoCom.Trim())
+            try
             {
-                case "I":
-                    strTipoCom = "Ingreso";
-                    break;
-                default:
-                    strTipoCom = "Egreso";
-                    break;
+
+                //--Ruta img qr--//
+                string strImage = comprobantXml.QR;
+
+                //--Emisor--//
+                string strEmisorRfc = comprobantXml.Emisor.Rfc;
+                string strEmisorName = comprobantXml.Emisor.Nombre;
+                string strEmisorRegInt = comprobantXml.Emisor.RegimenFiscal;
+                string strEmisorRegi = getRegimenFiscal(Int32.Parse(comprobantXml.Emisor.RegimenFiscal));
+
+                //--Receptor--//
+                string strReceptorUsoCfdi = comprobantXml.Receptor.UsoCFDI;
+                string strReceptorRfc = comprobantXml.Receptor.Rfc;
+                string strReceptorName = comprobantXml.Receptor.Nombre;
+                int intReceptorRegi = Int32.Parse(comprobantXml.Receptor.RegimenFiscalReceptor);
+                string strReceptorRegi = getRegimenFiscal(Int32.Parse(comprobantXml.Receptor.RegimenFiscalReceptor));
+                string strReceptorDirr = comprobantXml.Receptor.DomicilioFiscalReceptor;
+
+                //--About comprobante--//
+                string strUuid = tfd.UUID;
+                string strFolioCom = com.Folio;
+                string strNoCerCom = com.NoCertificado;
+                string strNoCerSat = tfd.NoCertificadoSAT;
+                string strVersionTf = tfd.Version;
+                string strSubtotalCom = intAMoneda(0, com.SubTotal, "");
+                string strImpTotalCom = intAMoneda(0, com.Total, "");
+                decimal strImpTotalId = com.Total - com.SubTotal;
+                string strImpTotalImp = intAMoneda(0, strImpTotalId, "");
+                string strDescuentCom = intAMoneda(0, com.Descuento, "");
+                string strSelloCfdi = tfd.SelloCFD;
+                string strSelloSatt = tfd.SelloSAT;
+                string strRfcProvTim = tfd.RfcProvCertif;
+                string strTipoCom = com.TipoDeComprobante;
+                string strFechaTimb = tfd.FechaTimbrado.ToString("s");
+
+
+                string strCfdiVersion = comprobantXml.Version;
+                string strFormaPago = comprobantXml.FormaPago;
+                string strFormaPagoletra = getMetodoPagoLetra(Int32.Parse(strFormaPago));
+                string strMetodoPago = comprobantXml.MetodoPago;
+                string paaw = comprobantXml.Fecha;
+
+                var asd = com.Impuestos.Traslados;
+                var aasd = com.Impuestos;
+
+                //--Impuestos--//
+                //var pimpuestos = comprobantXml.Impuestos.Traslados.ToList();
+                var pimpuestos = comprobantXml.Impuestos.Traslados.ToList();
+                var pimpuestosAdaptados = pimpuestos.Select(b => new ImpuestoAdapter(b)).ToList();////Convertir objetos conceptos a objetos ProductoAdapter
+
+                //--Conceptos--//
+                var pproductos = comprobantXml.Conceptos.ToList();
+                var pproductosAdaptados = pproductos.Select(p => new ProductoAdapter(p)).ToList();////Convertir objetos conceptos a objetos ProductoAdapter
+                switch (strTipoCom.Trim())
+                {
+                    case "I":
+                        strTipoCom = "Ingreso";
+                        break;
+                    default:
+                        strTipoCom = "Egreso";
+                        break;
+                }
+                // Crear un objeto de datos para la plantilla
+                var data = new
+                {
+                    fecha = DateTime.Now.ToShortDateString(),
+                    comprobante = new
+                    {
+                        uuid = $"{strUuid}",// UUID de la factura (sustituye con el valor real)
+                        tipo = $"{strTipoCom}",
+                        version = $"{strCfdiVersion}",
+                        formpago = $"{strFormaPago}",
+                        formapagostr = $"{strFormaPagoletra}",
+                        metodopago = $"{strMetodoPago}",
+                        nocertificado = $"{strNoCerCom}",
+                        nocertificadosat = $"{strNoCerSat}",
+                        folio = $"{strFolioCom}",
+                        total = $"{strImpTotalCom}",
+                        sellocfdi = $"{strSelloCfdi}",
+                        descuento = $"{strDescuentCom}",
+                        sellosatt = $"{strSelloSatt}",
+                        monedaconletra = $"{MonedaConLetra}",
+                        cadenacomp = $"||{strVersionTf}|{strUuid}|{strFechaTimb}|{strRfcProvTim}|{strSelloCfdi}"
+                    },
+                    emisor = new
+                    {
+                        rfc = $"{strEmisorRfc}",
+                        nombre = $"{strEmisorName}",
+                        regimen = $"{strEmisorRegi}",
+                        numregimen = $"{strEmisorRegInt}",
+                        direccion = "Dirección del Emisor"
+                    },
+                    receptor = new
+                    {
+                        rfc = $"{strReceptorRfc}",
+                        nombre = $"{strReceptorName}",
+                        regimen = $"{strReceptorRegi}",
+                        usocfdi = $"{strReceptorUsoCfdi}",
+                        direccion = "Dirección del Receptor"
+                    },
+                    impuestoo = pimpuestosAdaptados,
+                    urlimage = strImage,
+                    productos = pproductosAdaptados,
+                    totalimpuestos = strImpTotalImp,
+                    totalFactura = intAMoneda(0, pproductos.Sum(p => p.Importe), "") // Calcula el total de la factura
+                };
+
+                //string templateSource = "C:\\Users\\Guadalupe Reyes C\\Downloads\\prueba.html"; // (plantilla HTML prueba2)
+                //String content = File.ReadAllText(templateSource);
+
+                // Compila la plantilla
+                Template template = Template.Parse(html);
+
+                // Rellena la plantilla con los datos
+                string htmlMamalon = template.Render(Hash.FromAnonymousObject(data));
+
+                return htmlMamalon;
             }
-            // Crear un objeto de datos para la plantilla
-            var data = new
+            catch (Exception ex)
             {
-                fecha = DateTime.Now.ToShortDateString(),
-                comprobante = new
-                {
-                    uuid = $"{strUuid}",// UUID de la factura (sustituye con el valor real)
-                    tipo = $"{strTipoCom}",
-                    version = $"{strCfdiVersion}",
-                    formpago = $"{strFormaPago}",
-                    formapagostr = $"{strFormaPagoletra}",
-                    metodopago = $"{strMetodoPago}",
-                    nocertificado = $"{strNoCerCom}",
-                    nocertificadosat = $"{strNoCerSat}",
-                    folio = $"{strFolioCom}",
-                    total = $"{strImpTotalCom}",
-                    sellocfdi = $"{strSelloCfdi}",
-                    descuento = $"{strDescuentCom}",
-                    sellosatt = $"{strSelloSatt}",
-                    monedaconletra = $"{MonedaConLetra}",
-                    cadenacomp = $"||{strVersionTf}|{strUuid}|{strFechaTimb}|{strRfcProvTim}|{strSelloCfdi}"
-                },
-                emisor = new
-                {
-                    rfc = $"{strEmisorRfc}",
-                    nombre = $"{strEmisorName}",
-                    regimen = $"{strEmisorRegi}",
-                    numregimen = $"{strEmisorRegInt}",
-                    direccion = "Dirección del Emisor"
-                },
-                receptor = new
-                {
-                    rfc = $"{strReceptorRfc}",
-                    nombre = $"{strReceptorName}",
-                    regimen = $"{strReceptorRegi}",
-                    usocfdi = $"{strReceptorUsoCfdi}",
-                    direccion = "Dirección del Receptor"
-                },
-                impuestoo = pimpuestosAdaptados,
-                urlimage = strImage,
-                productos = pproductosAdaptados,
-                totalimpuestos = strImpTotalImp,
-                totalFactura = intAMoneda(0, pproductos.Sum(p => p.Importe), "") // Calcula el total de la factura
-            };
-
-            //string templateSource = "C:\\Users\\Guadalupe Reyes C\\Downloads\\prueba.html"; // (plantilla HTML prueba2)
-            //String content = File.ReadAllText(templateSource);
-
-            // Compila la plantilla
-            Template template = Template.Parse(html);
-
-            // Rellena la plantilla con los datos
-            string htmlMamalon = template.Render(Hash.FromAnonymousObject(data));
-
-            return htmlMamalon;
+                MessageBox.Show(ex.Message, "RENOVATIO PyME");
+                return "";
+            }
+            
         }
 
         private string MonedaConLetra

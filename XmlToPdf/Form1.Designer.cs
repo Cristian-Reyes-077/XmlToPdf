@@ -68,10 +68,10 @@
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("Montserrat SemiBold", 12F, System.Drawing.FontStyle.Bold);
-            this.button5.Location = new System.Drawing.Point(61, 207);
+            this.button5.Location = new System.Drawing.Point(61, 200);
             this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(607, 46);
+            this.button5.Size = new System.Drawing.Size(649, 46);
             this.button5.TabIndex = 8;
             this.button5.Text = "Generar pdf";
             this.button5.UseVisualStyleBackColor = true;
@@ -91,7 +91,7 @@
             // 
             // button3
             // 
-            this.button3.Font = new System.Drawing.Font("Montserrat SemiBold", 9F, System.Drawing.FontStyle.Bold);
+            this.button3.Font = new System.Drawing.Font("Montserrat SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.button3.Location = new System.Drawing.Point(686, 151);
             this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
@@ -113,16 +113,16 @@
             // 
             // textBox2
             // 
-            this.textBox2.Font = new System.Drawing.Font("Montserrat Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(34, 151);
+            this.textBox2.Font = new System.Drawing.Font("Montserrat Medium", 8F, System.Drawing.FontStyle.Bold);
+            this.textBox2.Location = new System.Drawing.Point(34, 155);
             this.textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(620, 26);
+            this.textBox2.Size = new System.Drawing.Size(620, 24);
             this.textBox2.TabIndex = 4;
             // 
             // button2
             // 
-            this.button2.Font = new System.Drawing.Font("Montserrat SemiBold", 9F, System.Drawing.FontStyle.Bold);
+            this.button2.Font = new System.Drawing.Font("Montserrat SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.button2.Location = new System.Drawing.Point(686, 72);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
@@ -157,11 +157,11 @@
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Font = new System.Drawing.Font("Montserrat Medium", 9F, System.Drawing.FontStyle.Bold);
-            this.textBox1.Location = new System.Drawing.Point(33, 72);
+            this.textBox1.Font = new System.Drawing.Font("Montserrat Medium", 8F, System.Drawing.FontStyle.Bold);
+            this.textBox1.Location = new System.Drawing.Point(33, 74);
             this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(651, 26);
+            this.textBox1.Size = new System.Drawing.Size(651, 24);
             this.textBox1.TabIndex = 1;
             // 
             // Form1
