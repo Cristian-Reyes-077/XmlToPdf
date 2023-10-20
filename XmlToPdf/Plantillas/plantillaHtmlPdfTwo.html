@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body style="font-family:Arial;">
+
+    <div class="invoice-header">
+        <h1>Comprobante fiscal</h1>
+        <div class="invoice-number">Folio fiscal: {{ comprobante.uuid }}</div>
+    </div>
+
+    <div class="invoice">
+
+        <table class="table">
+            <tr>
+                <td height="50%">
+                    <div class="info-container vertical-line">
+                        <h2 style="color:steelblue;">&nbsp; Informaci&oacute;n sobre el Emisor</h2>
+                        <p>&nbsp;&nbsp;&nbsp; {{ emisor.nombre }}</p>
+                        <p>&nbsp;&nbsp;&nbsp; {{ emisor.rfc }}</p>
+                        <p>&nbsp;&nbsp;&nbsp; {{ emisor.direccion}}</p>
+                        <br />
+                        <p>&nbsp;&nbsp;&nbsp; {{ emisor.regimen}}</p>
+                    </div>
+                </td>
+                <td height="50%">
+                    <div class="info-container vertical-line">
+                        <h2 style="color: steelblue;">&nbsp; Informaci&oacute;n sobre el Receptor</h2>
+                        <p>&nbsp;&nbsp;&nbsp; {{ receptor.nombre }}</p>
+                        <p>&nbsp;&nbsp;&nbsp; {{ receptor.rfc }}</p>
+                        <p>&nbsp;&nbsp;&nbsp; {{ receptor.direccion}}</p>
+                        <br />
+                        <p>&nbsp;&nbsp;&nbsp; {{ emisor.regimen}}</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="invoice">
+        <table class="table">
+            <tr>
+                <td>
+                    <div class="info-container">
+                        <p><b>No.Comprobante</b></p>
+                        <p class="info-container-pp">{{comprobante.folio}}</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="info-container">
+                        <p><b>Tipo de Comprobante</b></p>
+                        <p class="info-container-pp">{{comprobante.tipo}}</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="info-container">
+                        <p><b>Fecha</b></p>
+                        <p class="info-container-pp">{{fecha}}</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="info-container" style="background-color: #DDEDFD; ">
+                        <p><b>Importe Total</b></p>
+                        <p class="info-container-pp">{{ comprobante.total }}</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+
+
+    <br />
+    <div>
+        <div>
+            <table style="width:100%;" class="tabla">
+                <tr>
+                    <th>Clave</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Unidad</th>
+                    <th>Precio</th>
+                    <th>Total</th>
+                </tr>
+
+                <!-- Aquí puedes iterar a través de los productos de la factura -->
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto.Clave }}</td>
+                    <td>{{ producto.Descripcion }}</td>
+                    <td>{{ producto.Cantidad }}</td>
+                    <td>{{ producto.Unidad }}</td>
+                    <td>{{ producto.PrecioUnitario }}</td>
+                    <td>{{ producto.Total }}</td>
+                </tr>
+                {% endfor %}
+                <!-- Fin de la iteración de productos -->
+
+               
+                <!-- {% if( impuestos !=null) %} -->
+                {% for llll in impuestoo %}
+                <tr>
+                    <td>{{ llll.Totall }} </td>
+                </tr>
+
+                {% endfor %}
+                <!-- {% endif %} -->
+
+
+                <tr>
+                    <td colspan="4"></td>
+                    <td>Subtotal:</td>
+                    <td>{{ totalFactura }}</td>
+
+
+                </tr>
+                <tr>
+                    <td colspan="4"></td>
+                    <td>Impuestos:</td>
+                    <td>{{ totalimpuestos }}</td>
+                </tr>
+                <tr>
+                    <td colspan="4"></td>
+                    <td>Total:</td>
+                    <td>{{ comprobante.total }}</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="textoContiguo" style="font-size:11px;">
+        <b>Cadena original del complemento de certificación digital del SAT:</b>
+        <br />
+        <p>{{comprobante.cadenacomp}}</p>
+    </div>
+
+    <br />
+
+    <div class="textoContiguo" style="font-size:11px;">
+        <b>Sello digital del CFDI:</b>
+        <br />
+        <p>{{comprobante.sellocfdi}}</p>
+    </div>
+
+    <br />
+
+    <div class="textoContiguo" style="font-size:11px;">
+        <b>Sello digital del SAT:</b>
+        <br />
+        <p>{{comprobante.sellosatt}}</p>
+    </div>
+
+    <br />
+
+    <div class="textoContiguo" style="font-size:11px;">
+        {{ comprobante.monedaconletra }}
+    </div>
+
+    <br />
+
+    <!--<div class="textoContiguo" style="font-size:11px;">
+        @Model.Sello
+    </div>-->
+
+    <br />
+    <div>
+        <div style="width:50%;float:left;">
+            <img src="{{ urlimage }}" width="250" height="250" />
+
+        </div>
+        <div style="width:50%;float:left;"></div>
+        <div style="clear:both;"></div>
+    </div>
+
+</body>
+</html>
+
+<style>
+    .tabla th {
+        border-bottom: 1px solid #000;
+    }
+
+    .table-container {
+        width: 100%;
+        display: flex;
+        justify-content: center; /* Centrar la tabla horizontalmente */
+    }
+
+    .table {
+        width: 100%; /* Cada columna ocupa el 50% del ancho */
+        border-collapse: collapse;
+        margin: 20px auto; /* Centrar la tabla verticalmente */
+    }
+
+    .textoContiguo {
+        -ms-word-break: break-all;
+        word-break: break-all;
+        word-break: break-word; /*sólo WebKit -NO DOCUMENTADO */
+        -ms-hyphens: auto; /*guiones para separar en sílabas */
+        -moz-hyphens: auto; /*depende de lang en <html>*/
+        -webkit-hyphens: auto;
+        hyphens: auto;
+    }
+
+    .small-text { /* Tamaño de fuente más pequeño (puedes ajustarlo según tus necesidades) */
+        font-size: smaller; /* Tamaño de fuente más pequeño */
+    }
+
+    .invoice-header {
+        text-align: center;
+    }
+
+    .invoice-number {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .invoice {
+        width: 100%;
+        margin: 20px auto;
+        padding: 20px;
+        border-bottom: 1px solid #a0a0a0;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.06);
+        display: flex;
+    }
+
+    .info-container {
+        flex: 1;
+    }
+
+        .info-container h2 {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .info-container p {
+            margin: 8px 0;
+        }
+
+    .info-container-pp {
+        font-size: 25px;
+        font-weight: bold
+    }
+
+    .vertical-line {
+        border-left: 1px solid #ccc;
+        height: 100%;
+        margin: 0 20px;
+        color: black;
+    }
+</style>
+<!-- .vertical-line {
+    border-left: 2px solid #ccc;
+    height: 100%;
+    margin: 0 20px;
+    color: black;
+}
+
+.info-container {
+    flex: 1;
+}
+
+.info-container h2 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.info-container p {
+    margin: 5px 0;
+}
+.info-container-pp {
+    font-size: 23px;
+    font-weight: bold;
+} -->
+<!-- width: 100%;
+margin: 20px auto;
+padding: 20px;
+/* border-bottom: 1px solid #ccc ; */
+border-bottom: 1px solid #a0a0a0 ;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+display: flex; -->
